@@ -35,7 +35,7 @@ async function main() {
     .then(res => res.json())
     .then(({data}) => {
       if (data.createLighthouseStatistic) {
-        data.createLighthouseStatistic.id
+        return data.createLighthouseStatistic.id
       } else {
         setFailed('Could not read the ID of your posted report. The mutation has probably failed')
       }
