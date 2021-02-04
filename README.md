@@ -52,7 +52,7 @@ jobs:
 
       - name: Webstats Lighthouse reporter
         id: webstats-lighthouse-reporter
-        uses: voorhoede/webstats-lighthouse-reporter@0.1.2 # or any other version
+        uses: voorhoede/webstats-lighthouse-reporter@0.1.3 # or any other version
         env:
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_TOKEN: ${{ github.token }}
