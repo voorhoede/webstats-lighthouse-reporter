@@ -13,7 +13,7 @@ module.exports = {
             target: 'temporary-public-storage'
         },
         collect: {
-            staticDistDir: './build'
+            staticDistDir: './build' // or wherever your project builds to
         }
     },
 };
@@ -27,6 +27,7 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
 jobs:
   lhci:
@@ -52,15 +53,15 @@ jobs:
 
       - name: Webstats Lighthouse reporter
         id: webstats-lighthouse-reporter
-        uses: ./.github/actions/webstats-lighthouse-reporter
+        uses: voorhoede/webstats-lighthouse-reporter@0.1.x # or any other version
         env:
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           WEBSTATS_PROJECT_ID: ${{ secrets.WEBSTATS_PROJECT_ID }}
           WEBSTATS_API_KEY: ${{ secrets.WEBSTATS_API_KEY }}```
-
-# TODO
+```
+## TODO
 - It now only reports the first item in a report array from the `lhci` package, but it should report all representative builds (Every route has it's opwn report)
 - The default branch is now hardcoded as `main` for the `.yml` file, but it should detect the default branch
 - Release as an action that can be used in the `.yml` file without having to commit the action folder
