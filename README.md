@@ -19,8 +19,7 @@ module.exports = {
 };
 ```
 - Add the secrets `WEBSTATS_PROJECT_ID` and `WEBSTATS_API_KEY` to your repo
-- Add this folder, including `node_modules` to your project under `.github/actions/webstats-lighthouse-reporter`
-- add the following `.yml` file to `.github/workflows/<filename>.yml`
+- add the following `.yml` file to `.github/workflows/<filename>.yml` (or use our `webstats.example.yml` and rename it)
 ```yaml
 name: Web Stats Reporter
 on:
@@ -59,7 +58,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           WEBSTATS_PROJECT_ID: ${{ secrets.WEBSTATS_PROJECT_ID }}
-          WEBSTATS_API_KEY: ${{ secrets.WEBSTATS_API_KEY }}```
+          WEBSTATS_API_KEY: ${{ secrets.WEBSTATS_API_KEY }}
 ```
 ## TODO
 - It now only reports the first item in a report array from the `lhci` package, but it should report all representative builds (Every route has it's opwn report)

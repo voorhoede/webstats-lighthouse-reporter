@@ -1,12 +1,13 @@
-name: CI
+name: Web Stats Reporter
 on:
   push:
     branches:
       - main
+      - master
   pull_request:
 jobs:
   lhci:
-    name: Web Stats Reporter
+    name: Lighthouse Reporter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,10 +29,10 @@ jobs:
 
       - name: Webstats Lighthouse reporter
         id: webstats-lighthouse-reporter
-        uses: ./.github/actions/webstats-lighthouse-reporter
+        uses: voorhoede/webstats-lighthouse-reporter@0.1.2 # or any other version
         env:
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.number }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           WEBSTATS_PROJECT_ID: ${{ secrets.WEBSTATS_PROJECT_ID }}
           WEBSTATS_API_KEY: ${{ secrets.WEBSTATS_API_KEY }}
