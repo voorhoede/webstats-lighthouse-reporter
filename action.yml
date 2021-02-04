@@ -1,0 +1,9 @@
+name: Post lighthouse report to webstats
+author: bazottie
+description: Post lighthouse report to webstats
+runs:
+  using: node12
+  main: 'dist/index.js'
+branding:
+  icon: cloud-lightning
+  color: orange

@@ -1,0 +1,28 @@
+{
+  "name": "webstats-reporter",
+  "version": "1.0.0",
+  "description": "CI step that creates a lighthouse report, posts to web stats and compares on PR",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build index.js --license licenses.txt",
+    "lint": "eslint . --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run build && git add dist"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "@lhci/utils": "^0.7.0",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.27.0",
+    "eslint": "^7.19.0",
+    "husky": "^4.3.8"
+  }
+}
