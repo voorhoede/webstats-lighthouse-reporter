@@ -39,7 +39,7 @@ jobs:
           lhci autorun
       - name: Webstats Lighthouse reporter
         id: webstats-lighthouse-reporter
-        uses: voorhoede/webstats-lighthouse-reporter@0.1.4
+        uses: voorhoede/webstats-lighthouse-reporter@v0
         env:
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_TOKEN: ${{ github.token }}
