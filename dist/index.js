@@ -127,18 +127,18 @@ function getLatestBaseReport(gitCommitSha) {
     body: JSON.stringify({
       query: `
         query Statistic($id: String!, $gitCommitSha: String) {
-          project(id: $id) {
-            id
-            statistics(
-              filter: {type: LIGHTHOUSE, gitCommitSha: {equals: $gitCommitSha}}
-              first: 1
-            ) {
-              __typename
-              ... on LighthouseStatistic {
-                raw
-              }
+          allStatistics(
+            where: {
+              project: { id: { equals: $id } }
+              type: { equals: "LIGHTHOUSE" }
+              gitCommitSha: { equals: $gitCommitSha }
             }
+            take: 1
+          ) {
             __typename
+            ... on LighthouseStatistic {
+              raw
+            }
           }
         }
       `,
@@ -150,8 +150,8 @@ function getLatestBaseReport(gitCommitSha) {
   })
     .then(res => res.json())
     .then(body => {
-      if (body.data && body.data.project) {
-        return body.data.project.statistics[0].raw
+      if (body.data && body.data.allStatistics) {
+        return body.data.allStatistics[0].raw
       } else {
         return ({hasFailed: true})
       }
