@@ -38,21 +38,31 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 12.x
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - name: Install dependencies
-        run: npm install
+        run: npm ci --ignore-scripts
       - name: Build
         run: npm run build
         env:
           NODE_ENV: ${{ secrets.NODE_ENV }}
-
       - name: Run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.6.x
           lhci autorun
-
       - name: Webstats Lighthouse reporter
         id: webstats-lighthouse-reporter
-        uses: voorhoede/webstats-lighthouse-reporter@0.1.3 # or any other version
+        uses: voorhoede/webstats-lighthouse-reporter@0.1.4
         env:
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_TOKEN: ${{ github.token }}
